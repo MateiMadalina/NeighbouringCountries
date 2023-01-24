@@ -15,7 +15,7 @@ const addCountryToDropdown = (dataBase) => {
 
 // Add all <option> elements to HTML
 dropdown.insertAdjacentHTML('beforeend', `
-  <option>-- Select a country --</option>
+  <option>-- Select a country from the list --</option>
   ${addCountryToDropdown(countries)}`);
 
 // Add details for a selected country
