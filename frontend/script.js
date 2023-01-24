@@ -115,4 +115,11 @@ let countryName = '';
       countryName.innerText = dropdown.value;
     })
 
+    // Create two new buttons in the <nav id="toolbar"> element
+    addElementToHtml(toolbarNavigation, `
+    <button id="prev">Previous country</button>
+    <button id="next">Next country</button>`)
+
+    
+
 
