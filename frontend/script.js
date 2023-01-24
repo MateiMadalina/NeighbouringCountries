@@ -105,6 +105,6 @@ allCountries.addEventListener("change", (event) => {
     } 
 }
 })
-console.log("")
+
 
 
