@@ -3,7 +3,8 @@
 // Select elements
 const dropdown = document.getElementById('all'),
       webPage = document.getElementById('country'),
-      populationBtn = document.getElementById('population');
+      populationBtn = document.getElementById('population'),
+      areaBtn = document.getElementById('area');
 
 // Create a function to add <option> elements to <select> element
 const addCountryToDropdown = (dataBase) => {
@@ -22,8 +23,9 @@ dropdown.insertAdjacentHTML('beforeend', `
 // Display a text if no country is selected
 webPage.innerHTML = `<h2>Select a country from the list</h2>`
 
-// Do not display button
+// Do not display buttons
 populationBtn.style.display = 'none';
+areaBtn.style.display = 'none';
 
 // Add details for a selected country
   dropdown.addEventListener('change', () => {
@@ -36,10 +38,12 @@ populationBtn.style.display = 'none';
         <h3>Subregion: ${country.subregion}</h3>
         <h4>Capital: ${country.capital}</h4>`;
         populationBtn.style.display = 'inline';
+        areaBtn.style.display = 'inline';
       } else if (dropdown.value === '-- Select a country --') {
         webPage.innerHTML = `
         <h2>Select a country from the list</h2>`;
         populationBtn.style.display = 'none';
+        areaBtn.style.display = 'none';
       }
     })
   })
