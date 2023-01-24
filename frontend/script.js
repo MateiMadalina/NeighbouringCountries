@@ -15,8 +15,11 @@ const addCountryToDropdown = (dataBase) => {
 
 // Add all <option> elements to HTML
 dropdown.insertAdjacentHTML('beforeend', `
-  <option>-- Select a country from the list --</option>
+  <option>-- Select a country --</option>
   ${addCountryToDropdown(countries)}`);
+
+// Display a text if no country is selected
+webPage.innerHTML = `<h2>Select a country from the list</h2>`
 
 // Add details for a selected country
   dropdown.addEventListener('change', () => {
@@ -28,6 +31,9 @@ dropdown.insertAdjacentHTML('beforeend', `
         <h2>Region: ${country.region}</h2>
         <h3>Subregion: ${country.subregion}</h3>
         <h4>Capital: ${country.capital}</h4>`
+      } else if (dropdown.value === '-- Select a country --') {
+        webPage.innerHTML = `
+          <h2>Select a country from the list</h2>`
       }
     })
   })
