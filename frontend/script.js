@@ -47,6 +47,7 @@ let countryName = '';
         areaBtn.style.display = 'none';
       }
     })
+    // select <h1> element with country name as value
     countryName = document.querySelector('h1');
   })
 
@@ -62,6 +63,7 @@ let countryName = '';
     })
     let largestCountryPopulation = result
       .sort((a,b) => b[number] - a[number])[0];
+    // add the country name to <select> element
     dropdown.value = largestCountryPopulation.name.common;
 
     return `<img src=${largestCountryPopulation.flags.png}>
@@ -75,6 +77,7 @@ let countryName = '';
   populationBtn.addEventListener('click', () => {
     countries.forEach(country => {
       if (countryName.textContent === country.name.common) {
+        //display in the <main> element
         if (country.borders) {
           webPage.innerHTML = `
           ${getLargestCountryBy(country.borders, 'population')}`
@@ -84,6 +87,7 @@ let countryName = '';
         }
       }
     })
+    // add to <h1> element the value of the <select> element which is the current country name
     countryName.innerText = dropdown.value;
   })
 
@@ -91,6 +95,7 @@ let countryName = '';
     areaBtn.addEventListener('click', () => {
       countries.forEach(country => {
         if (countryName.textContent === country.name.common) {
+          //display in the <main> element
           if (country.borders) {
             webPage.innerHTML = `
             ${getLargestCountryBy(country.borders, 'area')}`
@@ -100,6 +105,7 @@ let countryName = '';
           }
         }
       })
+      // add to <h1> element the value of the <select> element which is the current country name
       countryName.innerText = dropdown.value;
     })
 
