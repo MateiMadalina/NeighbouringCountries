@@ -1,5 +1,3 @@
-
-
 // Select elements
 const dropdown = document.getElementById('all'),
       webPage = document.getElementById('country'),
@@ -52,6 +50,7 @@ let countryName = '';
     countryName = document.querySelector('h1');
   })
 
+  // Get the largest country by a specific argument
   const getLargestCountryBy = (array, number) => {
     let result = [];
     countries.forEach(country => {
