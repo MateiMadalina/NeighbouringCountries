@@ -52,17 +52,17 @@ let countryName = '';
     countryName = document.querySelector('h1');
   })
 
-  const getLargestCountryPopulation = (borders) => {
+  const getLargestCountryBy = (array, number) => {
     let result = [];
     countries.forEach(country => {
-      borders.forEach(border => {
+      array.forEach(border => {
         if (country.cca3 === border) {
           result.push(country);
         }
       })
     })
     let largestCountryPopulation = result
-      .sort((a,b) => b.population - a.population)[0];
+      .sort((a,b) => b[number] - a[number])[0];
     dropdown.value = largestCountryPopulation.name.common;
 
     return `<img src=${largestCountryPopulation.flags.png}>
@@ -78,7 +78,7 @@ let countryName = '';
       if (countryName.textContent === country.name.common) {
         if (country.borders) {
           webPage.innerHTML = `
-          ${getLargestCountryPopulation(country.borders)}`
+          ${getLargestCountryBy(country.borders, 'population')}`
         } else {
           webPage.innerHTML = `
           <h2>This country has no neighbors!</h2>`
