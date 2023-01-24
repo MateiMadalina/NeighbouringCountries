@@ -50,12 +50,42 @@ let countryName = '';
       }
     })
     countryName = document.querySelector('h1');
-    console.log(countryName)
   })
+
+  const getLargestCountryPopulation = (borders) => {
+    let result = [];
+    countries.forEach(country => {
+      borders.forEach(border => {
+        if (country.cca3 === border) {
+          result.push(country);
+        }
+      })
+    })
+    let largestCountryPopulation = result
+      .sort((a,b) => b.population - a.population)[0];
+    dropdown.value = largestCountryPopulation.name.common;
+
+    return `<img src=${largestCountryPopulation.flags.png}>
+      <h1>${largestCountryPopulation.name.common}</h1>
+      <h2>Region: ${largestCountryPopulation.region}</h2>
+      <h3>Subregion: ${largestCountryPopulation.subregion}</h3>
+      <h4>Capital: ${largestCountryPopulation.capital[0]}</h4>`;
+  }
   
   // Set population button
   populationBtn.addEventListener('click', () => {
-
+    countries.forEach(country => {
+      if (countryName.textContent === country.name.common) {
+        if (country.borders) {
+          webPage.innerHTML = `
+          ${getLargestCountryPopulation(country.borders)}`
+        } else {
+          webPage.innerHTML = `
+          <h2>This country has no neighbors!</h2>`
+        }
+      }
+    })
+    countryName.innerText = dropdown.value;
   })
 
 
