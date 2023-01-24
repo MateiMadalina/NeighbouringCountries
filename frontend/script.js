@@ -27,6 +27,9 @@ webPage.innerHTML = `<h2>Select a country from the list</h2>`
 populationBtn.style.display = 'none';
 areaBtn.style.display = 'none';
 
+//Create a variable for name of a country from <h1> element
+let countryName = '';
+
 // Add details for a selected country
   dropdown.addEventListener('change', () => {
     countries.forEach(country => {
@@ -46,6 +49,13 @@ areaBtn.style.display = 'none';
         areaBtn.style.display = 'none';
       }
     })
+    countryName = document.querySelector('h1');
+    console.log(countryName)
+  })
+  
+  // Set population button
+  populationBtn.addEventListener('click', () => {
+
   })
 
 
