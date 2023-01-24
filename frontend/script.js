@@ -2,7 +2,8 @@
 const dropdown = document.getElementById('all'),
       webPage = document.getElementById('country'),
       populationBtn = document.getElementById('population'),
-      areaBtn = document.getElementById('area');
+      areaBtn = document.getElementById('area'),
+      toolbarNavigation = document.getElementById('toolbar');
 
 // Create a function to add <option> elements to <select> element
 const addCountryToDropdown = (dataBase) => {
@@ -13,8 +14,13 @@ const addCountryToDropdown = (dataBase) => {
   return result.sort().join('');
 }
 
+// A function wich inserts element in HTML
+const addElementToHtml = (parent, child) => {
+  parent.insertAdjacentHTML('beforeend', child)
+}
+
 // Add all <option> elements to HTML
-dropdown.insertAdjacentHTML('beforeend', `
+addElementToHtml(dropdown, `
   <option>-- Select a country --</option>
   ${addCountryToDropdown(countries)}`);
 
