@@ -18,6 +18,7 @@ dropdown.insertAdjacentHTML('beforeend', `
   <option>-- Select a country --</option>
   ${addCountryToDropdown(countries)}`);
 
+// Add details for a selected country
   dropdown.addEventListener('change', () => {
     countries.forEach(country => {
       if (dropdown.value === country.name.common) {
