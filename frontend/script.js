@@ -1,13 +1,20 @@
 
 
-// List the countries
-const dropdownList = document.getElementById('all');
+// Select element
+const dropdown = document.getElementById('all');
 
-const addOptionTagToElement = (dataBase) => {
+// Create a function to add <option> elements to <select> element
+const addCountryToDropdown = (dataBase) => {
   let result = [];
   dataBase.forEach(country => {
     result.push(`<option>${country.name.common}</option>`)
   });
   return result.sort().join('');
 }
-console.log(addOptionTagToElement(countries))
+
+// Add all <option> elements to HTML
+dropdown.insertAdjacentHTML('beforeend', `
+  <option>-- Select a country --</option>
+  ${addCountryToDropdown(countries)}`);
+
+  
