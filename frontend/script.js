@@ -88,4 +88,20 @@ let countryName = '';
     countryName.innerText = dropdown.value;
   })
 
+    // Set area button
+    areaBtn.addEventListener('click', () => {
+      countries.forEach(country => {
+        if (countryName.textContent === country.name.common) {
+          if (country.borders) {
+            webPage.innerHTML = `
+            ${getLargestCountryBy(country.borders, 'area')}`
+          } else {
+            webPage.innerHTML = `
+            <h2>This country has no neighbors!</h2>`
+          }
+        }
+      })
+      countryName.innerText = dropdown.value;
+    })
+
 
