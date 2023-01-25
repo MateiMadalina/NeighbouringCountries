@@ -87,41 +87,29 @@ const getLargestCountryBy = (array, number) => {
     <h4>Capital: ${largestCountryPopulation.capital[0]}</h4>`;
 };
 
-// Set population button
-populationBtn.addEventListener("click", () => {
-  countries.forEach((country) => {
-    if (countryName.textContent === country.name.common) {
-      //display in the <main> element
-      if (country.borders) {
-        webPage.innerHTML = `
-        ${getLargestCountryBy(country.borders, "population")}`;
-      } else {
-        webPage.innerHTML = `
-        <h2>This country has no neighbors!</h2>`;
-      }
-    }
-  });
-  // add to <h1> element the value of the <select> element which is the current country name
-  countryName.innerText = dropdown.value;
-});
-
-// Set area button
-areaBtn.addEventListener("click", () => {
-  countries.forEach((country) => {
-    if (countryName.textContent === country.name.common) {
-      //display in the <main> element
-      if (country.borders) {
-        webPage.innerHTML = `
-          ${getLargestCountryBy(country.borders, "area")}`;
-      } else {
-        webPage.innerHTML = `
+// Function that sets buttons
+const setsBtn = (button, location) => {
+  button.addEventListener("click", () => {
+    countries.forEach((country) => {
+      if (countryName.textContent === country.name.common) {
+        //display in the <main> element
+        if (country.borders) {
+          webPage.innerHTML = `
+          ${getLargestCountryBy(country.borders, location)}`;
+        } else {
+          webPage.innerHTML = `
           <h2>This country has no neighbors!</h2>`;
+        }
       }
-    }
+    });
+    // add to <h1> element the value of the <select> element which is the current country name
+    countryName.innerText = dropdown.value;
   });
-  // add to <h1> element the value of the <select> element which is the current country name
-  countryName.innerText = dropdown.value;
-});
+}
+
+// Sets buttons
+setsBtn(populationBtn, 'population');
+setsBtn(areaBtn, 'area');
 
 // Create two new buttons in the <nav id="toolbar"> element
 addElementToHtml(
