@@ -49,7 +49,6 @@ dropdown.addEventListener("change", () => {
       <h3>Subregion: ${country.subregion}</h3>
       <h4>Capital: ${country.capital}</h4>`;
       selectedCountry.push(country);
-      console.log(selectedCountry);
       populationBtn.style.display = "inline";
       areaBtn.style.display = "inline";
       if (selectedCountry.length > 1) {
@@ -133,7 +132,6 @@ prevBtn.addEventListener('click', () => {
   selectedCountry.forEach((item, index) => {
     if (countryName.innerText === selectedCountry[index].name.common) {
       if (index === 1) {
-        console.log('intra')
         prevBtn.disabled = true;
       }
       dropdown.value = selectedCountry[index-1].name.common; 
@@ -155,8 +153,6 @@ nextBtn.addEventListener('click', () => {
   selectedCountry.forEach((item, index) => {
     if (countryName.innerText === selectedCountry[index].name.common) {
       if (index === selectedCountry.length - 2) {
-        console.log('intra')
-        console.log(index)
         nextBtn.disabled = true;
       }
       dropdown.value = selectedCountry[index + 1].name.common; 
