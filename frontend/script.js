@@ -49,11 +49,15 @@ dropdown.addEventListener("change", () => {
       <h4>Capital: ${country.capital}</h4>`;
       populationBtn.style.display = "inline";
       areaBtn.style.display = "inline";
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
     } else if (dropdown.value === "-- Select a country --") {
       webPage.innerHTML = `
       <h2>Select a country from the list</h2>`;
       populationBtn.style.display = "none";
       areaBtn.style.display = "none";
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
     }
   });
   // select <h1> element with country name as value
@@ -131,7 +135,35 @@ const prevBtn = document.getElementById('prev'),
       nextBtn = document.getElementById('next');
 
 // set prev button
-console.log(prevBtn)
+prevBtn.addEventListener('click', () => {
+  countries.forEach((country) => {
+    if (countryName.textContent === country.name.common) {
+      //display in the <main> element
+      webPage.innerHTML = `
+      <img src=${country.flags.png}>
+      <h1>${country.name.common}</h1>
+      <h2>Region: ${country.region}</h2>
+      <h3>Subregion: ${country.subregion}</h3>
+      <h4>Capital: ${country.capital}</h4>`;
+    }
+  });
+  // add to <h1> element the value of the <select> element which is the current country name
+  countryName.innerText = dropdown.value;
+});
 
 // set next button
-console.log(nextBtn)
+nextBtn.addEventListener('click', () => {
+  countries.forEach((country) => {
+    if (countryName.textContent === country.name.common) {
+      //display in the <main> element
+      webPage.innerHTML = `
+      <img src=${country.flags.png}>
+      <h1>${country.name.common}</h1>
+      <h2>Region: ${country.region}</h2>
+      <h3>Subregion: ${country.subregion}</h3>
+      <h4>Capital: ${country.capital}</h4>`;
+    }
+  });
+  // add to <h1> element the value of the <select> element which is the current country name
+  countryName.innerText = dropdown.value;
+});
