@@ -150,7 +150,7 @@ prevBtn.addEventListener('click', () => {
   nextBtn.disabled = false;
 })
 
-// set next button
+// set next Button
 nextBtn.addEventListener('click', () => {
   selectedCountry.forEach((item, index) => {
     if (countryName.innerText === selectedCountry[index].name.common) {
