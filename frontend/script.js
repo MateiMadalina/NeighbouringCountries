@@ -5,6 +5,7 @@ const dropdown = document.getElementById('all'),
   areaBtn = document.getElementById('area'),
   toolbarNavigation = document.getElementById('toolbar');
 
+const countries2 = JSON.parse(JSON.stringify(countries));
 // Create a function to add <option> elements to <select> element
 const addCountryToDropdown = (dataBase) => {
   let result = [];
@@ -12,6 +13,14 @@ const addCountryToDropdown = (dataBase) => {
     result.push(`<option>${country.name.common}</option>`);
   });
   return result.sort().join("");
+};
+
+const addTranslationToDropdown = (dataBase) => {
+  let result = [];
+  Object.keys(dataBase[0].translations).forEach(language => {
+    result.push(`<option>${language}</option>`);
+  })
+return result.sort().join("");
 };
 
 // A function wich inserts element in HTML
@@ -27,6 +36,18 @@ addElementToHtml(
   ${addCountryToDropdown(countries)}`
 );
 
+addElementToHtml(
+  toolbarNavigation,
+  `<select id="translation"></select>`
+);
+const translationDropdown = document.getElementById("translation");
+
+addElementToHtml(
+  translationDropdown,
+  `<option>--Select language--</option>
+  ${addTranslationToDropdown(countries)}`
+);
+
 // Display a text if no country is selected
 webPage.innerHTML = `<h2>Select a country from the list</h2>`;
 
@@ -40,11 +61,12 @@ let countryName = "",
 
 // Add details for a selected country
 dropdown.addEventListener("change", () => {
-  countries.forEach((country) => {
+  countries2.forEach((country) => {
     if (dropdown.value === country.name.common) {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
-      <h1>${country.name.common}</h1>
+      <h1>${translationDropdown.value === "--Select language--" ? 
+      country.name.common: country.translations[translationDropdown.value].common}</h1>
       <h2>Region: ${country.region}</h2>
       <h3>Subregion: ${country.subregion}</h3>
       <h4>Capital: ${country.capital}</h4>`;
@@ -167,3 +189,20 @@ nextBtn.addEventListener('click', () => {
   prevBtn.disabled = false;
   countryName.innerText = dropdown.value;
 });
+
+
+//OPTIONAL TASK: Translations
+translationDropdown.addEventListener("change",() =>{
+  let item = translationDropdown.value;
+  console.log(item);
+  countries2.forEach((country) => {
+    if (dropdown.value === country.name.common && Object.keys(country.translations).includes(item)) {
+      webPage.innerHTML = `
+      <img src=${country.flags.png}>
+      <h1>${country.translations[item].common}</h1>
+      <h2>Region: ${country.region}</h2>
+      <h3>Subregion: ${country.subregion}</h3>
+      <h4>Capital: ${country.capital}</h4>`;
+    }
+})
+})
