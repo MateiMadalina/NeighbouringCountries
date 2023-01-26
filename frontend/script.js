@@ -65,7 +65,7 @@ dropdown.addEventListener("change", () => {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
       <h1>${translationDropdown.value === "--Select language--" ? 
-      country.name.common: country.translations[translationDropdown.value].common}</h1>
+      country.name.common : country.translations[translationDropdown.value].common}</h1>
       <h2>Region: ${country.region}</h2>
       <h3>Subregion: ${country.subregion}</h3>
       <h4>Capital: ${country.capital}</h4>`;

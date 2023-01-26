@@ -18,7 +18,7 @@ button{
     color: rgb(8, 8, 8);
     background-color: #9dafde;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px #999;
   }
   
@@ -30,3 +30,16 @@ button{
     text-align: center;
   }
 
+  select{
+    cursor: pointer;
+    outline: none;
+    color: rgb(8, 8, 8);
+    background-color: #bec8e3;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px #999;
+  }
+ 
+  select:hover {
+    background-color: #5a72b0
+  }
