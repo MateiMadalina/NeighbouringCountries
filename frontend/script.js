@@ -5,7 +5,6 @@ const dropdown = document.getElementById('all'),
   areaBtn = document.getElementById('area'),
   toolbarNavigation = document.getElementById('toolbar');
 
-const countries2 = JSON.parse(JSON.stringify(countries));
 // Create a function to add <option> elements to <select> element
 const addCountryToDropdown = (dataBase) => {
   let result = [];
@@ -61,7 +60,7 @@ let countryName = "",
 
 // Add details for a selected country
 dropdown.addEventListener("change", () => {
-  countries2.forEach((country) => {
+  countries.forEach((country) => {
     if (dropdown.value === country.name.common) {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
@@ -195,7 +194,7 @@ nextBtn.addEventListener('click', () => {
 translationDropdown.addEventListener("change",() =>{
   let item = translationDropdown.value;
   console.log(item);
-  countries2.forEach((country) => {
+  countries.forEach((country) => {
     if (dropdown.value === country.name.common && Object.keys(country.translations).includes(item)) {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
