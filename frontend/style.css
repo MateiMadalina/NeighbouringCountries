@@ -1,0 +1,32 @@
+body{
+    background: rgb(230,222,225);
+    background: radial-gradient(circle, rgba(230,222,225,0.7540266106442577) 0%, rgba(154,175,198,0.8688725490196079) 100%);
+}
+
+body{
+    text-align: center;
+    margin-top: 0.5cm;
+}
+
+#country{
+    margin-top: 4cm;
+}
+
+button{
+    cursor: pointer;
+    outline: none;
+    color: rgb(8, 8, 8);
+    background-color: #9dafde;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px #999;
+  }
+  
+  button:hover {
+    background-color: #5c79c2
+  }
+
+  #translation{
+    margin-top: 0.5cm;
+    margin-left: 1cm;
+  }
