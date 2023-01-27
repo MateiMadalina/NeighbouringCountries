@@ -1,9 +1,9 @@
 // Select elements
-const dropdown = document.getElementById('all'),
-  webPage = document.getElementById('country'),
-  populationBtn = document.getElementById('population'),
-  areaBtn = document.getElementById('area'),
-  toolbarNavigation = document.getElementById('toolbar');
+const countriesDropdown = document.getElementById("all"),
+  webPage = document.getElementById("country"),
+  populationBtn = document.getElementById("population"),
+  areaBtn = document.getElementById("area"),
+  toolbarNavigation = document.getElementById("toolbar");
 
 // Create a function to add <option> elements to <select> element
 const addCountryToDropdown = (dataBase) => {
@@ -16,10 +16,10 @@ const addCountryToDropdown = (dataBase) => {
 
 const addTranslationToDropdown = (dataBase) => {
   let result = [];
-  Object.keys(dataBase[0].translations).forEach(language => {
+  Object.keys(dataBase[0].translations).forEach((language) => {
     result.push(`<option>${language}</option>`);
-  })
-return result.sort().join("");
+  });
+  return result.sort().join("");
 };
 
 // A function wich inserts element in HTML
@@ -28,17 +28,12 @@ const addElementToHtml = (parent, child) => {
 };
 
 // Add all <option> elements to HTML
-addElementToHtml(
-  dropdown,
-  `
-  <option>-- Select a country --</option>
+addElementToHtml(countriesDropdown,
+  `<option>-- Select a country --</option>
   ${addCountryToDropdown(countries)}`
 );
 
-addElementToHtml(
-  toolbarNavigation,
-  `<select id="translation"></select>`
-);
+addElementToHtml(toolbarNavigation, `<select id="translation"></select>`);
 const translationDropdown = document.getElementById("translation");
 
 addElementToHtml(
@@ -56,20 +51,24 @@ areaBtn.style.display = "none";
 
 //Create a variable for name of a country from <h1> element
 let countryName = "",
-    selectedCountry = [];
+  selectedCountry = [];
 
 // Add details for a selected country
-dropdown.addEventListener("change", () => {
+countriesDropdown.addEventListener("change", () => {
   countries.forEach((country) => {
-    if (dropdown.value === country.name.common) {
+    if (countriesDropdown.value === country.name.common) {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
-      <h1>${translationDropdown.value === "--Select language--" ? 
-      country.name.common : country.translations[translationDropdown.value].common}</h1>
+      <h1>${
+        translationDropdown.value === "--Select language--"
+          ? country.name.common
+          : country.translations[translationDropdown.value].common
+      }</h1>
       <h2>Region: ${country.region}</h2>
       <h3>Subregion: ${country.subregion}</h3>
       <h4>Capital: ${country.capital}</h4>`;
       selectedCountry.push(country);
+      indexOfCurrentItem = selectedCountry.length - 1;
       populationBtn.style.display = "inline";
       areaBtn.style.display = "inline";
       if (selectedCountry.length > 1) {
@@ -77,7 +76,7 @@ dropdown.addEventListener("change", () => {
       }
       // prevBtn.disabled = false;
       // nextBtn.disabled = false;
-    } else if (dropdown.value === "-- Select a country --") {
+    } else if (countriesDropdown.value === "-- Select a country --") {
       webPage.innerHTML = `
       <h2>Select a country from the list</h2>`;
       populationBtn.style.display = "none";
@@ -104,7 +103,9 @@ const getLargestCountryBy = (array, number) => {
     (a, b) => b[number] - a[number]
   )[0];
   // add the country name to <select> element
-  dropdown.value = largestCountryPopulation.name.common;
+  countriesDropdown.value = largestCountryPopulation.name.common;
+  selectedCountry.push(largestCountryPopulation);
+  indexOfCurrentItem = selectedCountry.length - 1;
 
   return `<img src=${largestCountryPopulation.flags.png}>
     <h1>${largestCountryPopulation.name.common}</h1>
@@ -118,7 +119,6 @@ const setsBtn = (button, location) => {
   button.addEventListener("click", () => {
     countries.forEach((country) => {
       if (countryName.textContent === country.name.common) {
-        //display in the <main> element
         if (country.borders) {
           webPage.innerHTML = `
           ${getLargestCountryBy(country.borders, location)}`;
@@ -129,13 +129,13 @@ const setsBtn = (button, location) => {
       }
     });
     // add to <h1> element the value of the <select> element which is the current country name
-    countryName.innerText = dropdown.value;
+    countryName.innerText = countriesDropdown.value;
   });
-}
+};
 
 // Sets buttons
-setsBtn(populationBtn, 'population');
-setsBtn(areaBtn, 'area');
+setsBtn(populationBtn, "population");
+setsBtn(areaBtn, "area");
 
 // Create two new buttons in the <nav id="toolbar"> element
 addElementToHtml(
@@ -145,57 +145,60 @@ addElementToHtml(
   <button id='next' disabled>Next country</button>`
 );
 
-const prevBtn = document.getElementById('prev'),
-      nextBtn = document.getElementById('next');
+const prevBtn = document.getElementById("prev"),
+  nextBtn = document.getElementById("next");
 
-// set prev button
-prevBtn.addEventListener('click', () => {
-  selectedCountry.forEach((item, index) => {
-    if (countryName.innerText === selectedCountry[index].name.common) {
-      if (index === 1) {
-        prevBtn.disabled = true;
-      }
-      dropdown.value = selectedCountry[index-1].name.common; 
-      webPage.innerHTML = `
-        <img src=${selectedCountry[index-1].flags.png}>
-        <h1>${selectedCountry[index-1].name.common}</h1>
-        <h2>Region: ${selectedCountry[index-1].region}</h2>
-        <h3>Subregion: ${selectedCountry[index-1].subregion}</h3>
-        <h4>Capital: ${selectedCountry[index-1].capital}</h4>`;
-    }
-  })
+// show previous button
+let indexOfCurrentItem = selectedCountry.length - 1;
+
+prevBtn.addEventListener("click", () => {
+  if (indexOfCurrentItem === -1 || indexOfCurrentItem === 0) {
+    prevBtn.disabled = true;
+  } else {
+    indexOfCurrentItem--;
+
+    countriesDropdown.value = selectedCountry[indexOfCurrentItem].name.common;
+    webPage.innerHTML = `
+      <img src=${selectedCountry[indexOfCurrentItem].flags.png}>
+      <h1>${selectedCountry[indexOfCurrentItem].name.common}</h1>
+      <h2>Region: ${selectedCountry[indexOfCurrentItem].region}</h2>
+      <h3>Subregion: ${selectedCountry[indexOfCurrentItem].subregion}</h3>
+      <h4>Capital: ${selectedCountry[indexOfCurrentItem].capital}</h4>`;
+  }
   // add to <h1> element the value of the <select> element which is the current country name
-  countryName.innerText = dropdown.value;
+  countryName.innerText = countriesDropdown.value;
   nextBtn.disabled = false;
-})
-
-// set next Button
-nextBtn.addEventListener('click', () => {
-  selectedCountry.forEach((item, index) => {
-    if (countryName.innerText === selectedCountry[index].name.common) {
-      if (index === selectedCountry.length - 2) {
-        nextBtn.disabled = true;
-      }
-      dropdown.value = selectedCountry[index + 1].name.common; 
-      webPage.innerHTML = `
-        <img src=${selectedCountry[index + 1].flags.png}>
-        <h1>${selectedCountry[index + 1].name.common}</h1>
-        <h2>Region: ${selectedCountry[index + 1].region}</h2>
-        <h3>Subregion: ${selectedCountry[index + 1].subregion}</h3>
-        <h4>Capital: ${selectedCountry[index + 1].capital}</h4>`;
-    }
-  })
-  prevBtn.disabled = false;
-  countryName.innerText = dropdown.value;
 });
 
+// show next Button
+nextBtn.addEventListener("click", () => {
+  if (
+    indexOfCurrentItem === -1 ||
+    indexOfCurrentItem === selectedCountry.length - 1
+  ) {
+    nextBtn.disabled = true;
+  } else {
+    indexOfCurrentItem++;
+    countriesDropdown.value = selectedCountry[indexOfCurrentItem].name.common;
+    webPage.innerHTML = `
+      <img src=${selectedCountry[indexOfCurrentItem].flags.png}>
+      <h1>${selectedCountry[indexOfCurrentItem].name.common}</h1>
+      <h2>Region: ${selectedCountry[indexOfCurrentItem].region}</h2>
+      <h3>Subregion: ${selectedCountry[indexOfCurrentItem].subregion}</h3>
+      <h4>Capital: ${selectedCountry[indexOfCurrentItem].capital}</h4>`;
+  }
+  prevBtn.disabled = false;
+  countryName.innerText = countriesDropdown.value;
+});
 
 //OPTIONAL TASK: Translations
-translationDropdown.addEventListener("change",() =>{
+translationDropdown.addEventListener("change", () => {
   let item = translationDropdown.value;
-  console.log(item);
   countries.forEach((country) => {
-    if (dropdown.value === country.name.common && Object.keys(country.translations).includes(item)) {
+    if (
+      countriesDropdown.value === country.name.common &&
+      Object.keys(country.translations).includes(item)
+    ) {
       webPage.innerHTML = `
       <img src=${country.flags.png}>
       <h1>${country.translations[item].common}</h1>
@@ -203,5 +206,5 @@ translationDropdown.addEventListener("change",() =>{
       <h3>Subregion: ${country.subregion}</h3>
       <h4>Capital: ${country.capital}</h4>`;
     }
-})
-})
+  });
+});
